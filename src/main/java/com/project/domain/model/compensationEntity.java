@@ -1,47 +1,28 @@
 package com.project.domain.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@Getter
+@AllArgsConstructor
 public class compensationEntity {
 
-    private final int id_compensation;
-    private final int code_cb;
+    private int id_compensation;
+
+    private int code_cb;
+
     private LocalDate date_limit;
+
     private double total_value;
+
     private double remaining_value;
-    private String state;
 
-    public compensationEntity(int id_compensation, int code_cb, double total_value, double remaining_value) {
-        this.id_compensation = id_compensation;
-        this.code_cb = code_cb;
-        this.date_limit = setDate_cmp();
-        this.total_value = total_value;
-        this.remaining_value = remaining_value;
-        this.state = "Pending";
-    }
+    private CompensationStatus state;
 
-    public int getId_compensation() {
-        return id_compensation;
-    }
-
-    public int getCode_cb() {
-        return code_cb;
-    }
-
-    public LocalDate getDate_limit() {
-        return date_limit;
-    }
-
-    public double getTotal_value() {
-        return total_value;
-    }
-
-    public double getRemaining_value() {
-        return remaining_value;
-    }
-
-    public String getState() {
-        return state;
+    public compensationEntity() {
+        this.state = CompensationStatus.PENDING;
     }
 
     public LocalDate setDate_cmp() {
@@ -72,7 +53,8 @@ public class compensationEntity {
     }
 
     public static void main(String[] args) {
-        compensationEntity cmp = new compensationEntity(1546, 87052, 2550000, 2550000);
+        compensationEntity cmp = new compensationEntity();
+        cmp = new compensationEntity(1546, 87052, cmp.setDate_cmp(), 2550000, 2550000, cmp.state);
         System.out.println(cmp.toString());
     }
 }

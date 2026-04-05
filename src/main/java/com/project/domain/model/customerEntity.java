@@ -1,6 +1,7 @@
 package com.project.domain.model;
 import java.time.*;
 
+
 public class customerEntity {
 
     private final int identification;
