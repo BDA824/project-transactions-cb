@@ -1,11 +1,12 @@
-package com.project.domain.model;
+package com.project.domain.model.entity;
 
+import com.project.domain.model.enums.CompensationStatus;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class compensationEntity {
 

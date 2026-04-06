@@ -1,7 +1,7 @@
-package com.project.domain.model;
+package com.project.domain.model.entity;
 
+import com.project.domain.model.enums.TransactionStatus;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;

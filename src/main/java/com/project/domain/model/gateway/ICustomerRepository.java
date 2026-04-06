@@ -1,4 +1,5 @@
-package com.project.domain.model;
+package com.project.domain.model.gateway;
+import com.project.domain.model.entity.customerEntity;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
