@@ -29,4 +29,6 @@ public class correspondentEntity {
     public correspondentEntity() {
         this.state = CorrespondentStatus.ACTIVE;
     }
+
+    public void assignState() {this.state = CorrespondentStatus.ACTIVE; }
 }

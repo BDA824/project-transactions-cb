@@ -8,6 +8,6 @@ import java.util.List;
 public interface ITransactionRepository {
 
     Mono<transactionEntity> create(transactionEntity trx);
-    Mono<List<transactionEntity>> getAllTransactions();
+    Flux<transactionEntity> getAllTransactions();
     Flux<transactionEntity> getTransactionByCb(int code_cb);
 }
