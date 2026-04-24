@@ -4,24 +4,45 @@ import com.project.domain.model.gateway.ICompensationRepository;
 import com.project.domain.model.gateway.ICorrespondentRepository;
 import com.project.domain.model.entity.compensationEntity;
 import com.project.domain.model.entity.correspondentEntity;
+import com.project.domain.model.gateway.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 public class CreateCorrespndentUseCase {
 
     private final ICorrespondentRepository correspondentRepository;
     private final ICompensationRepository cmpRepository;
-
-    Random random = new Random();
+    private final ICustomerRepository customerRepository;
 
     public Mono<correspondentEntity> createCB(correspondentEntity cb) {
+
+        return customerRepository.findCustomerById(cb.getIdCustomer())
+                .switchIfEmpty(Mono.error(
+                        new RuntimeException("Customer: " + cb.getIdCustomer() + " not found.")
+                ))
+                .flatMap(cl -> {
+                    cb.assignState();
+                    return correspondentRepository.create(cb).flatMap(correspondentSave -> createCompensation(correspondentSave)
+                            .thenReturn(correspondentSave));
+                });
+    }
+
+    private Mono<Void> createCompensation(correspondentEntity cb){
         compensationEntity cmp = new compensationEntity();
-        cmp = new compensationEntity(random.nextInt(1001,9999),
-                cb.getCode_cb(),cmp.setDate_cmp(),0.0,0.0,cmp.getState());
-        cmpRepository.create(cmp);
-        return correspondentRepository.create(cb);
+        int code_cmp = ThreadLocalRandom.current().nextInt(1001, 9999);
+
+        cmp = new compensationEntity(
+                code_cmp,
+                cb.getCode_cb(),
+                cmp.setDate_cmp(),
+                cb.getLast_clousure(),
+                cb.getLast_clousure(),
+                cmp.getState()
+        );
+
+        return cmpRepository.create(cmp);
     }
 
 

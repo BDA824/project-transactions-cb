@@ -3,6 +3,7 @@ package com.project.domain.model.usecase.customer.get;
 import com.project.domain.model.gateway.ICustomerRepository;
 import com.project.domain.model.entity.customerEntity;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class GetAllCustomerUseCase {
 
     private final ICustomerRepository customerReporitory;
 
-    public Mono<List<customerEntity>> getAllCustomers() {
+    public Flux<customerEntity> getAllCustomers() {
         return customerReporitory.getAllCustomers();
     }
 }
