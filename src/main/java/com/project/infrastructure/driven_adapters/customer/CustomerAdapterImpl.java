@@ -1,5 +1,7 @@
 package com.project.infrastructure.driven_adapters.customer;
 
+import com.project.domain.exception.exception_classes.TechnicalExceptions;
+import com.project.domain.exception.message.TechnicalErrorMessage;
 import com.project.domain.model.entity.customerEntity;
 import com.project.domain.model.gateway.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,8 @@ public class CustomerAdapterImpl implements ICustomerRepository {
     {
         return customerAdapterRepository
                 .save(customerAdapterMapper.toData(cl))
-                .map(customerAdapterMapper::toEntity);
+                .map(customerAdapterMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CUSTOMER_SAVE));
     }
 
     @Override
@@ -29,7 +32,8 @@ public class CustomerAdapterImpl implements ICustomerRepository {
     {
         return customerAdapterRepository
                 .findById(id)
-                .map(customerAdapterMapper::toEntity);
+                .map(customerAdapterMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CUSTOMER_FIND));
     }
 
     @Override
@@ -54,9 +58,7 @@ public class CustomerAdapterImpl implements ICustomerRepository {
                 {
                     if(rowsAffected == 0)
                     {
-                        return Mono.error(new RuntimeException(
-                                "Customer not found: " + cl.getIdentification()
-                        ));
+                        return Mono.error(new TechnicalExceptions(TechnicalErrorMessage.CUSTOMER_FIND));
                     }
                     return customerAdapterRepository.findById(cl.getIdentification());
                 })

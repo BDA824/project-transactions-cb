@@ -1,5 +1,7 @@
 package com.project.infrastructure.driven_adapters.correspondent;
 
+import com.project.domain.exception.exception_classes.TechnicalExceptions;
+import com.project.domain.exception.message.TechnicalErrorMessage;
 import com.project.domain.model.entity.correspondentEntity;
 import com.project.domain.model.gateway.ICorrespondentRepository;
 import com.project.infrastructure.driven_adapters.customer.CustomerAdapterMapper;
@@ -21,26 +23,49 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
 
         return correspondentAdapterRepository
                 .save(correspondentMapper.toData(correspondent))
-                .map(correspondentMapper::toEntity);
+                .map(correspondentMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CORRESPONDENT_SAVE));
     }
 
     @Override
     public Flux<correspondentEntity> getAllCorrespondents() {
-        return Flux.empty();
+
+        return correspondentAdapterRepository
+                .findAll()
+                .map(correspondentMapper::toEntity);
     }
 
     @Override
     public Mono<correspondentEntity> getCorrespondentById(int codeCB) {
-        return Mono.empty();
+
+        return correspondentAdapterRepository
+                .findCorrespondentByCodeCb(codeCB)
+                .map(correspondentMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CORRESPONDENT_FIND));
     }
 
     @Override
-    public Mono<correspondentEntity> findCorrespondentById(int id) {
-        return Mono.empty();
+    public Flux<correspondentEntity> findCorrespondentById(int id) {
+
+        return correspondentAdapterRepository
+                .findCorrespondentByIdCustomer(id)
+                .map(correspondentMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CORRESPONDENT_FIND));
     }
 
     @Override
     public Mono<correspondentEntity> updateCorrespondent(correspondentEntity crp) {
-        return Mono.empty();
+
+        return correspondentAdapterRepository
+                .updateCorrespondentInfo(
+                        crp.getLocation(),
+                        crp.getLast_clousure(),
+                        crp.getCode_cb()
+                )
+                .flatMap(rw ->
+                    correspondentAdapterRepository.findCorrespondentByCodeCb(crp.getCode_cb())
+                )
+                .map(correspondentMapper::toEntity)
+                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CORRESPONDENT_FIND));
     }
 }

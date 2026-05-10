@@ -1,5 +1,6 @@
 package com.project.domain.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.project.domain.model.enums.TransactionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@JsonDeserialize
 public class transactionEntity {
 
     private int id_trx;

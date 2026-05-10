@@ -19,36 +19,42 @@ public class CreateTransactionUseCase {
 
         return compensationRepository.getCompensationByCb(trx.getCode_cb())
                 .switchIfEmpty(Mono.error(
-                        new Exception("Compensation not found or in state pending")
+                        new Exception("Compensation not found or in state pending " + trx.getCode_cb())
                 ))
                 .flatMap(compensation -> {
-                    updateCompensation(compensation, trx);
                     trx.setState(TransactionStatus.APPROVED);
                     return transactionRepository.create(trx);
-                });
+                })
+                .flatMap(trxC -> updateCompensation(trx)
+                        .thenReturn(trxC));
     }
 
     private Mono<compensationEntity> updateCompensation(
-            compensationEntity cmp, transactionEntity trx
+            transactionEntity trx
     ) {
 
-        double value = 0;
-        if (cmp.getTotal_value() == 0)
-        {
-            return Mono.error(new Exception("Compensation cannot be completed"));
-        }
-        else {
-            value = cmp.getTotal_value() - trx.getAmount_trx();
-            if(value > 1)
-            {
-                cmp.setState(CompensationStatus.CREDIT);
-                cmp.setRemaining_value(value);
-            }
-            cmp.setState(CompensationStatus.COMPENSED);
-            cmp.setRemaining_value(value);
-        }
+        return compensationRepository
+                .getCompensationByCb(trx.getCode_cb())
+                .flatMap(cmp -> {
+                    if (cmp.getTotal_value() == 0)
+                    {
+                        return Mono.error(new Exception("Compensation cannot be completed"));
+                    }
+                    else {
+                        double value = cmp.getRemaining_value() - trx.getAmount_trx();
+                        if(value > 1)
+                        {
+                            cmp.setState(CompensationStatus.CREDIT);
+                            cmp.setRemaining_value(value);
+                        }
+                        else {
+                            cmp.setState(CompensationStatus.COMPENSED);
+                            cmp.setRemaining_value(value);
+                        }
+                    }
 
-        return compensationRepository.updateCompensation(cmp);
+                    return compensationRepository.updateCompensation(cmp);
+                });
     }
 
 }

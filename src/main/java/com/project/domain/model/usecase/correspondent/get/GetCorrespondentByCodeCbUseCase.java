@@ -2,25 +2,22 @@ package com.project.domain.model.usecase.correspondent.get;
 
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.exception.message.BusinessErrorMessage;
-import com.project.domain.model.entity.correspondentEntity;
 import com.project.domain.model.gateway.ICorrespondentRepository;
+import com.project.domain.model.entity.correspondentEntity;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
-public class GetCorrespondentByIdUseCase {
+public class GetCorrespondentByCodeCbUseCase {
 
     private final ICorrespondentRepository correspondentRepository;
 
-    public Flux<correspondentEntity> getCorrespondentByIdCustomer(int identification) {
-
+    public Mono<correspondentEntity> getCorrespondentById(int code_cb) {
         return correspondentRepository
-                .findCorrespondentById(identification)
+                .getCorrespondentById(code_cb)
                 .switchIfEmpty(Mono.error(
                         new BusinessException(BusinessErrorMessage.CORRESPONDENT_NOT_FOUND)
                 ));
-
     }
 
 }

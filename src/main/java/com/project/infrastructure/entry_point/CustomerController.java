@@ -1,11 +1,13 @@
 package com.project.infrastructure.entry_point;
 
+import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.model.entity.customerEntity;
 import com.project.domain.model.usecase.customer.create.CreateCustomerUseCase;
 import com.project.domain.model.usecase.customer.get.FindCustomerByIdUseCase;
 import com.project.domain.model.usecase.customer.get.GetAllCustomerUseCase;
 import com.project.domain.model.usecase.customer.update.UpdateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +25,24 @@ public class CustomerController {
     private final UpdateCustomerUseCase updateUC;
 
     @PostMapping(path = "/create")
-    public Mono<ResponseEntity<customerEntity>> createCustomer(@RequestBody customerEntity customer)
+    public Mono<ResponseEntity<Object>> createCustomer(@RequestBody customerEntity customer)
     {
         return createUC
                 .saveCustomer(customer)
-                .map(r -> ResponseEntity.ok().body(r));
+                .map(r -> ResponseEntity.ok().body((Object) r))
+                .onErrorResume(BusinessException.class, err -> Mono.just(
+                        ResponseEntity.badRequest().body(err.getBusinessErrorMessage())
+                ));
     }
 
     @GetMapping("/{identification}")
-    public Mono<ResponseEntity<customerEntity>> findCustomerById(@PathVariable int identification)
-    {
+    public Mono<ResponseEntity<Object>> findCustomerById(@PathVariable int identification) {
         return findByIdUC
                 .getCustomerById(identification)
-                .map(r -> ResponseEntity.ok().body(r));
+                .map(r -> ResponseEntity.ok().body((Object) r))
+                .onErrorResume(BusinessException.class, err -> Mono.just(
+                        ResponseEntity.notFound().build()
+                ));
     }
 
     @GetMapping("/")
@@ -46,10 +53,13 @@ public class CustomerController {
     }
 
     @PutMapping("/")
-    public Mono<ResponseEntity<customerEntity>> updateCustomer(@RequestBody customerEntity customer)
+    public Mono<ResponseEntity<Object>> updateCustomer(@RequestBody customerEntity customer)
     {
         return updateUC
                 .updateCustomer(customer)
-                .map(r -> ResponseEntity.ok().body(r));
+                .map(r -> ResponseEntity.ok().body((Object) r))
+                .onErrorResume(BusinessException.class, err -> Mono.just(
+                        ResponseEntity.status(404).body(err.getBusinessErrorMessage())
+                ));
     }
 }
