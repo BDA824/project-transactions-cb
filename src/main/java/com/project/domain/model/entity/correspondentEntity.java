@@ -10,6 +10,8 @@ public class correspondentEntity {
 
     private int code_cb;
 
+    private int id;
+
     private int idCustomer;
 
     private double approved_amount;

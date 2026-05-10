@@ -12,8 +12,11 @@ import org.springframework.data.domain.Persistable;
 public class CorrespondentAdapterData implements Persistable<Integer> {
 
     @Id
+    @Column("id")
+    private int id;
+
     @Column("code_cb")
-    private Integer code_cb;
+    private int code_cb;
 
     @Column("id_customer")
     private int idCustomer;

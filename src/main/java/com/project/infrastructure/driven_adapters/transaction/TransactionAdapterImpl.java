@@ -13,19 +13,32 @@ import reactor.core.publisher.Mono;
 public class TransactionAdapterImpl implements ITransactionRepository {
 
     private final TransactionAdapterRepository transactionAdapterRepository;
+    private final TransactionMapper transactionMapper;
 
     @Override
     public Flux<transactionEntity> getTransactionByCb(int code_cb) {
-        return Flux.empty();
+
+        return transactionAdapterRepository
+                .getTransactionsByCb(code_cb)
+                .map(transactionMapper::toEntity);
+
     }
 
     @Override
     public Flux<transactionEntity> getAllTransactions() {
-        return Flux.empty();
+
+        return transactionAdapterRepository
+                .findAll()
+                .map(transactionMapper::toEntity);
+
     }
 
     @Override
     public Mono<transactionEntity> create(transactionEntity trx) {
-        return Mono.empty();
+
+        return transactionAdapterRepository
+                .save(transactionMapper.toData(trx))
+                .map(transactionMapper::toEntity);
+
     }
 }

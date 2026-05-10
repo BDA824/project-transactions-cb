@@ -14,22 +14,22 @@ import java.time.LocalDate;
 public class TransactionAdapterData implements Persistable<Integer> {
 
     @Id
-    @Column("id-trx")
+    @Column("id_trx")
     private Integer id_trx;
 
-    @Column("code-cb")
+    @Column("code_cb")
     private int code_cb;
 
     @Column("entity")
     private String entity;
 
-    @Column("amount-trx")
+    @Column("amount_trx")
     private double amount_trx;
 
     @Column("state")
     private TransactionStatus state;
 
-    @Column("date-trx")
+    @Column("date_trx")
     private LocalDate date_trx;
 
     @Override
@@ -39,6 +39,6 @@ public class TransactionAdapterData implements Persistable<Integer> {
 
     @Override
     public boolean isNew() {
-        return false;
+        return true;
     }
 }

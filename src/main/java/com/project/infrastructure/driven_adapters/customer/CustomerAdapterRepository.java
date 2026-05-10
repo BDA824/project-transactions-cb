@@ -21,4 +21,6 @@ public interface CustomerAdapterRepository extends ReactiveCrudRepository<Custom
             @Param("phone")         Long phone,
             @Param("address")       String address
     );
+
+    //Validate if customer already exist in method create
 }

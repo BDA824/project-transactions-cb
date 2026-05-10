@@ -15,7 +15,7 @@ public class CompensationAdapterData implements Persistable<Integer> {
 
     @Id
     @Column("id_compensation")
-    private Integer id_compensation;
+    private int id_compensation;
 
     @Column("code_cb")
     private int code_cb;
@@ -29,8 +29,9 @@ public class CompensationAdapterData implements Persistable<Integer> {
     @Column("remaining_value")
     private double remaining_value;
 
+
     @Column("state")
-    private CompensationStatus state;
+    private String state;
 
     @Override
     public Integer getId() {
@@ -39,6 +40,6 @@ public class CompensationAdapterData implements Persistable<Integer> {
 
     @Override
     public boolean isNew() {
-        return false;
+        return true;
     }
 }

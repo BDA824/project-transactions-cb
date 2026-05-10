@@ -1,5 +1,7 @@
 package com.project.domain.model.usecase.customer.create;
 
+import com.project.domain.exception.exception_classes.BusinessException;
+import com.project.domain.exception.message.BusinessErrorMessage;
 import com.project.domain.model.gateway.ICustomerRepository;
 import com.project.domain.model.entity.customerEntity;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class CreateCustomerUseCase {
     public Mono<customerEntity> saveCustomer(customerEntity cl)
     {
         cl.setDate_vinculation(LocalDate.now());
-        return customerRepository.create(cl);
+        return customerRepository
+                .create(cl);
     }
 }

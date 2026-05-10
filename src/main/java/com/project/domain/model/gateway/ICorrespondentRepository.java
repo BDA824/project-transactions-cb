@@ -10,6 +10,6 @@ public interface ICorrespondentRepository {
     Mono<correspondentEntity> create(correspondentEntity crp);
     Flux<correspondentEntity> getAllCorrespondents();
     Mono<correspondentEntity> getCorrespondentById(int codeCB);
-    Mono<correspondentEntity> findCorrespondentById(int id);
+    Flux<correspondentEntity> findCorrespondentById(int id);
     Mono<correspondentEntity> updateCorrespondent(correspondentEntity crp);
 }

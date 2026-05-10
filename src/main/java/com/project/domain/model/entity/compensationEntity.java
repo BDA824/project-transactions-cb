@@ -1,5 +1,6 @@
 package com.project.domain.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.project.domain.model.enums.CompensationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@JsonDeserialize
 public class compensationEntity {
 
     private int id_compensation;
@@ -51,11 +53,5 @@ public class compensationEntity {
                 ", remaining_value = " + remaining_value +
                 ", state='" + state + '\'' +
                 '}';
-    }
-
-    public static void main(String[] args) {
-        compensationEntity cmp = new compensationEntity();
-        cmp = new compensationEntity(1546, 87052, cmp.setDate_cmp(), 2550000, 2550000, cmp.state);
-        System.out.println(cmp.toString());
     }
 }
