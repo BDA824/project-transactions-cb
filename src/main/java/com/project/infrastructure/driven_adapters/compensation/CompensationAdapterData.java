@@ -15,19 +15,19 @@ public class CompensationAdapterData implements Persistable<Integer> {
 
     @Id
     @Column("id_compensation")
-    private int id_compensation;
+    private int idCompensation;
 
     @Column("code_cb")
-    private int code_cb;
+    private int codeCB;
 
     @Column("date_limit")
-    private LocalDate date_limit;
+    private LocalDate dateLimit;
 
     @Column("total_value")
-    private double total_value;
+    private double totalValue;
 
     @Column("remaining_value")
-    private double remaining_value;
+    private double remainingValue;
 
 
     @Column("state")
@@ -35,7 +35,7 @@ public class CompensationAdapterData implements Persistable<Integer> {
 
     @Override
     public Integer getId() {
-        return id_compensation;
+        return idCompensation;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.project.infrastructure.entry_point;
 
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import com.project.domain.model.usecase.transaction.create.CreateTransactionUseCase;
 import com.project.domain.model.usecase.transaction.get.GetAllTransactionsUseCase;
 import com.project.domain.model.usecase.transaction.get.GetTransactionByCbUseCase;
@@ -21,14 +21,14 @@ public class TransactionController {
     private final GetTransactionByCbUseCase getByCbUC;
 
     @GetMapping(path = "/")
-    public Flux<transactionEntity> getAllTransactions() {
+    public Flux<TransactionEntity> getAllTransactions() {
 
         return getAllUC
                 .getAllTransactions();
     }
 
     @PostMapping(path = "/create")
-    public Mono<ResponseEntity<transactionEntity>> createTransaction(@RequestBody transactionEntity trx){
+    public Mono<ResponseEntity<TransactionEntity>> createTransaction(@RequestBody TransactionEntity trx){
 
         return createTrxUC
                 .createTransaction(trx)
@@ -39,7 +39,7 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/{code_cb}")
-    public Flux<transactionEntity> getTransactionsByCb(
+    public Flux<TransactionEntity> getTransactionsByCb(
             @PathVariable int code_cb
     ) {
 

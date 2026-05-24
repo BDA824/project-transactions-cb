@@ -1,7 +1,7 @@
 package com.project.domain.model.usecase.transaction.create;
 
-import com.project.domain.model.entity.compensationEntity;
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.CompensationEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import com.project.domain.model.enums.CompensationStatus;
 import com.project.domain.model.enums.TransactionStatus;
 import com.project.domain.model.gateway.ICompensationRepository;
@@ -15,11 +15,11 @@ public class CreateTransactionUseCase {
     private final ITransactionRepository transactionRepository;
     private final ICompensationRepository compensationRepository;
 
-    public Mono<transactionEntity> createTransaction(transactionEntity trx) {
+    public Mono<TransactionEntity> createTransaction(TransactionEntity trx) {
 
-        return compensationRepository.getCompensationByCb(trx.getCode_cb())
+        return compensationRepository.getCompensationByCb(trx.getCodeCB())
                 .switchIfEmpty(Mono.error(
-                        new Exception("Compensation not found or in state pending " + trx.getCode_cb())
+                        new Exception("Compensation not found or in state pending " + trx.getCodeCB())
                 ))
                 .flatMap(compensation -> {
                     trx.setState(TransactionStatus.APPROVED);
@@ -29,27 +29,27 @@ public class CreateTransactionUseCase {
                         .thenReturn(trxC));
     }
 
-    private Mono<compensationEntity> updateCompensation(
-            transactionEntity trx
+    private Mono<CompensationEntity> updateCompensation(
+            TransactionEntity trx
     ) {
 
         return compensationRepository
-                .getCompensationByCb(trx.getCode_cb())
+                .getCompensationByCb(trx.getCodeCB())
                 .flatMap(cmp -> {
-                    if (cmp.getTotal_value() == 0)
+                    if (cmp.getTotalValue() == 0)
                     {
                         return Mono.error(new Exception("Compensation cannot be completed"));
                     }
                     else {
-                        double value = cmp.getRemaining_value() - trx.getAmount_trx();
+                        double value = cmp.getRemainingValue() - trx.getAmountTrx();
                         if(value > 1)
                         {
                             cmp.setState(CompensationStatus.CREDIT);
-                            cmp.setRemaining_value(value);
+                            cmp.setRemainingValue(value);
                         }
                         else {
                             cmp.setState(CompensationStatus.COMPENSED);
-                            cmp.setRemaining_value(value);
+                            cmp.setRemainingValue(value);
                         }
                     }
 

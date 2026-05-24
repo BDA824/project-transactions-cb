@@ -1,14 +1,13 @@
 package com.project.infrastructure.driven_adapters.customer;
 
-import com.project.domain.model.entity.customerEntity;
+import com.project.domain.model.entity.CustomerEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CustomerAdapterMapper {
 
-    CustomerAdapterData toData(customerEntity entity);
+    CustomerAdapterData toData(CustomerEntity entity);
 
-    customerEntity toEntity(CustomerAdapterData data);
+    CustomerEntity toEntity(CustomerAdapterData data);
 
 }

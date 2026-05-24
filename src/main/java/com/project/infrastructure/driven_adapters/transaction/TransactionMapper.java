@@ -1,12 +1,12 @@
 package com.project.infrastructure.driven_adapters.transaction;
 
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {
 
-    TransactionAdapterData toData(transactionEntity entity);
+    TransactionAdapterData toData(TransactionEntity entity);
 
-    transactionEntity toEntity(TransactionAdapterData data);
+    TransactionEntity toEntity(TransactionAdapterData data);
 }

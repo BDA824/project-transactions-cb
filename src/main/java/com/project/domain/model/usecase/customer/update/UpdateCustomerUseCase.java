@@ -3,7 +3,7 @@ package com.project.domain.model.usecase.customer.update;
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.exception.message.BusinessErrorMessage;
 import com.project.domain.model.gateway.ICustomerRepository;
-import com.project.domain.model.entity.customerEntity;
+import com.project.domain.model.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -12,7 +12,7 @@ public class UpdateCustomerUseCase {
 
     private final ICustomerRepository customerRepository;
 
-    public Mono<customerEntity> updateCustomer(customerEntity cl) {
+    public Mono<CustomerEntity> updateCustomer(CustomerEntity cl) {
         return customerRepository.findCustomerById(cl.getIdentification())
                 .switchIfEmpty(Mono.error(
                         new BusinessException(BusinessErrorMessage.CUSTOMER_NOT_FOUND)

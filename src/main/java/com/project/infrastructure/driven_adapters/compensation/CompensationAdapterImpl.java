@@ -1,6 +1,6 @@
 package com.project.infrastructure.driven_adapters.compensation;
 
-import com.project.domain.model.entity.compensationEntity;
+import com.project.domain.model.entity.CompensationEntity;
 import com.project.domain.model.gateway.ICompensationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ public class CompensationAdapterImpl implements ICompensationRepository {
     private final CompensationMapper compensationMapper;
 
     @Override
-    public Mono<compensationEntity> create(compensationEntity cmp)
+    public Mono<CompensationEntity> create(CompensationEntity cmp)
     {
 
         return compensationAdapterRepository
@@ -24,12 +24,12 @@ public class CompensationAdapterImpl implements ICompensationRepository {
     }
 
     @Override
-    public Flux<compensationEntity> getAllCompensations() {
+    public Flux<CompensationEntity> getAllCompensations() {
         return Flux.empty();
     }
 
     @Override
-    public Mono<compensationEntity> getCompensationByCb(int code_cb)
+    public Mono<CompensationEntity> getCompensationByCb(int code_cb)
     {
 
         return compensationAdapterRepository
@@ -39,23 +39,23 @@ public class CompensationAdapterImpl implements ICompensationRepository {
     }
 
     @Override
-    public Mono<compensationEntity> updateCompensation(compensationEntity cmp) {
+    public Mono<CompensationEntity> updateCompensation(CompensationEntity cmp) {
 
         return compensationAdapterRepository
                 .updateCompensationByTransaction(
-                        cmp.getCode_cb(),
-                        cmp.getTotal_value(),
-                        cmp.getRemaining_value(),
+                        cmp.getCodeCB(),
+                        cmp.getTotalValue(),
+                        cmp.getRemainingValue(),
                         cmp.getState().name()
                 )
                 .flatMap(rw -> compensationAdapterRepository
-                        .getCompensationByCb(cmp.getCode_cb()))
+                        .getCompensationByCb(cmp.getCodeCB()))
                 .map(compensationMapper::toEntity);
 
     }
 
     @Override
-    public Mono<compensationEntity> updateClosed(
+    public Mono<CompensationEntity> updateClosed(
             double last_closed,
             int code_cb
             ) {

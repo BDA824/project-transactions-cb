@@ -6,17 +6,17 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class correspondentEntity {
+public class CorrespondentEntity {
 
-    private int code_cb;
+    private int codeCB;
 
     private int id;
 
     private int idCustomer;
 
-    private double approved_amount;
+    private double approvedAmount;
 
-    private int average_trx;
+    private int averageTrx;
 
     private String location;
 
@@ -24,11 +24,11 @@ public class correspondentEntity {
 
     private String owner;
 
-    private double last_clousure;
+    private double lastClosed;
 
     private CorrespondentStatus state;
 
-    public correspondentEntity() {
+    public CorrespondentEntity() {
         this.state = CorrespondentStatus.ACTIVE;
     }
 

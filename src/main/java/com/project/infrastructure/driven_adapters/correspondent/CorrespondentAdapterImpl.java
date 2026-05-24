@@ -2,9 +2,8 @@ package com.project.infrastructure.driven_adapters.correspondent;
 
 import com.project.domain.exception.exception_classes.TechnicalExceptions;
 import com.project.domain.exception.message.TechnicalErrorMessage;
-import com.project.domain.model.entity.correspondentEntity;
+import com.project.domain.model.entity.CorrespondentEntity;
 import com.project.domain.model.gateway.ICorrespondentRepository;
-import com.project.infrastructure.driven_adapters.customer.CustomerAdapterMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -18,7 +17,7 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
     private final CorrespondentMapper correspondentMapper;
 
     @Override
-    public Mono<correspondentEntity> create(correspondentEntity correspondent)
+    public Mono<CorrespondentEntity> create(CorrespondentEntity correspondent)
     {
 
         return correspondentAdapterRepository
@@ -28,7 +27,7 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
     }
 
     @Override
-    public Flux<correspondentEntity> getAllCorrespondents() {
+    public Flux<CorrespondentEntity> getAllCorrespondents() {
 
         return correspondentAdapterRepository
                 .findAll()
@@ -36,7 +35,7 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
     }
 
     @Override
-    public Mono<correspondentEntity> getCorrespondentById(int codeCB) {
+    public Mono<CorrespondentEntity> getCorrespondentById(int codeCB) {
 
         return correspondentAdapterRepository
                 .findCorrespondentByCodeCb(codeCB)
@@ -45,7 +44,7 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
     }
 
     @Override
-    public Flux<correspondentEntity> findCorrespondentById(int id) {
+    public Flux<CorrespondentEntity> findCorrespondentById(int id) {
 
         return correspondentAdapterRepository
                 .findCorrespondentByIdCustomer(id)
@@ -54,16 +53,16 @@ public class CorrespondentAdapterImpl implements ICorrespondentRepository {
     }
 
     @Override
-    public Mono<correspondentEntity> updateCorrespondent(correspondentEntity crp) {
+    public Mono<CorrespondentEntity> updateCorrespondent(CorrespondentEntity crp) {
 
         return correspondentAdapterRepository
                 .updateCorrespondentInfo(
                         crp.getLocation(),
-                        crp.getLast_clousure(),
-                        crp.getCode_cb()
+                        crp.getLastClosed(),
+                        crp.getCodeCB()
                 )
                 .flatMap(rw ->
-                    correspondentAdapterRepository.findCorrespondentByCodeCb(crp.getCode_cb())
+                    correspondentAdapterRepository.findCorrespondentByCodeCb(crp.getCodeCB())
                 )
                 .map(correspondentMapper::toEntity)
                 .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CORRESPONDENT_FIND));

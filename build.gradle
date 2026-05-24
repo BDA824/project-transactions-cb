@@ -3,6 +3,16 @@ plugins {
 	id 'org.springframework.boot' version '3.5.13'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id "co.com.bancolombia.cleanArchitecture" version "1.5.3"
+	id "org.sonarqube" version "7.2.0.6526"
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey",  "management-transactions-cb"
+		property "sonar.projectName", "management-transactions-cb"
+		property "sonar.host.url",    "http://localhost:9000"
+		property "sonar.token",       "sqa_08675684139668a6b41c66b40b9529ae4faf2c61"
+	}
 }
 
 group = 'com.project'
@@ -25,18 +35,41 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// Aplicación / Core
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// Persistencia Reactiva (R2DBC)
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation 'org.postgresql:r2dbc-postgresql:1.0.4.RELEASE'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// Herramientas y Utilidades
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+	// Procesadores de Anotaciones (Lombok & MapStruct)
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+	// HERRAMIENTAS DE PRUEBA (TESTING)
+	// Spring Boot Test — incluye JUnit 5 automáticamente
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Mockito actualizado — compatible con JUnit 5 y Java 17
+	testImplementation 'org.mockito:mockito-core:5.5.0'              // ← actualizado
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'     // ← agregar este
+
+	// Lombok en tests — para usar @Builder en los objetos de prueba
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// Reactor Test — StepVerifier para Mono y Flux
+	testImplementation 'io.projectreactor:reactor-test'
+
+	// Runtime JUnit
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

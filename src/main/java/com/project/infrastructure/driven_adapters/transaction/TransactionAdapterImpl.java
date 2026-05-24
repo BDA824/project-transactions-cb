@@ -1,7 +1,7 @@
 package com.project.infrastructure.driven_adapters.transaction;
 
 
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import com.project.domain.model.gateway.ITransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ public class TransactionAdapterImpl implements ITransactionRepository {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public Flux<transactionEntity> getTransactionByCb(int code_cb) {
+    public Flux<TransactionEntity> getTransactionByCb(int code_cb) {
 
         return transactionAdapterRepository
                 .getTransactionsByCb(code_cb)
@@ -25,7 +25,7 @@ public class TransactionAdapterImpl implements ITransactionRepository {
     }
 
     @Override
-    public Flux<transactionEntity> getAllTransactions() {
+    public Flux<TransactionEntity> getAllTransactions() {
 
         return transactionAdapterRepository
                 .findAll()
@@ -34,7 +34,7 @@ public class TransactionAdapterImpl implements ITransactionRepository {
     }
 
     @Override
-    public Mono<transactionEntity> create(transactionEntity trx) {
+    public Mono<TransactionEntity> create(TransactionEntity trx) {
 
         return transactionAdapterRepository
                 .save(transactionMapper.toData(trx))
