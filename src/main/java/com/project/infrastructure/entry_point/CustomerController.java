@@ -1,13 +1,12 @@
 package com.project.infrastructure.entry_point;
 
 import com.project.domain.exception.exception_classes.BusinessException;
-import com.project.domain.model.entity.customerEntity;
+import com.project.domain.model.entity.CustomerEntity;
 import com.project.domain.model.usecase.customer.create.CreateCustomerUseCase;
 import com.project.domain.model.usecase.customer.get.FindCustomerByIdUseCase;
 import com.project.domain.model.usecase.customer.get.GetAllCustomerUseCase;
 import com.project.domain.model.usecase.customer.update.UpdateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ public class CustomerController {
     private final UpdateCustomerUseCase updateUC;
 
     @PostMapping(path = "/create")
-    public Mono<ResponseEntity<Object>> createCustomer(@RequestBody customerEntity customer)
+    public Mono<ResponseEntity<Object>> createCustomer(@RequestBody CustomerEntity customer)
     {
         return createUC
                 .saveCustomer(customer)
@@ -46,14 +45,14 @@ public class CustomerController {
     }
 
     @GetMapping("/")
-    public Flux<customerEntity> getAllCustomers()
+    public Flux<CustomerEntity> getAllCustomers()
     {
         return getAllUC
                 .getAllCustomers();
     }
 
     @PutMapping("/")
-    public Mono<ResponseEntity<Object>> updateCustomer(@RequestBody customerEntity customer)
+    public Mono<ResponseEntity<Object>> updateCustomer(@RequestBody CustomerEntity customer)
     {
         return updateUC
                 .updateCustomer(customer)

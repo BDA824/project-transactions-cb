@@ -2,9 +2,11 @@ package com.project.infrastructure.driven_adapters.customer;
 
 import com.project.domain.exception.exception_classes.TechnicalExceptions;
 import com.project.domain.exception.message.TechnicalErrorMessage;
-import com.project.domain.model.entity.customerEntity;
+import com.project.domain.model.entity.CustomerEntity;
 import com.project.domain.model.gateway.ICustomerRepository;
+import io.r2dbc.spi.R2dbcException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -19,7 +21,7 @@ public class CustomerAdapterImpl implements ICustomerRepository {
 
     @Override
     @Transactional
-    public Mono<customerEntity> create(customerEntity cl)
+    public Mono<CustomerEntity> create(CustomerEntity cl)
     {
         return customerAdapterRepository
                 .save(customerAdapterMapper.toData(cl))
@@ -28,16 +30,15 @@ public class CustomerAdapterImpl implements ICustomerRepository {
     }
 
     @Override
-    public Mono<customerEntity> findCustomerById(int id)
+    public Mono<CustomerEntity> findCustomerById(int id)
     {
         return customerAdapterRepository
                 .findById(id)
-                .map(customerAdapterMapper::toEntity)
-                .onErrorMap(ex -> new TechnicalExceptions(ex, TechnicalErrorMessage.CUSTOMER_FIND));
+                .map(customerAdapterMapper::toEntity);
     }
 
     @Override
-    public Flux<customerEntity> getAllCustomers()
+    public Flux<CustomerEntity> getAllCustomers()
     {
         return customerAdapterRepository
                 .findAll()
@@ -45,7 +46,7 @@ public class CustomerAdapterImpl implements ICustomerRepository {
     }
 
     @Override
-    public Mono<customerEntity> updateCustomer(customerEntity cl)
+    public Mono<CustomerEntity> updateCustomer(CustomerEntity cl)
     {
         return customerAdapterRepository
                 .updateCustomer(

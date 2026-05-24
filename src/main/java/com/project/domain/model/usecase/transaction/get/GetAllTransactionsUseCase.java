@@ -1,19 +1,16 @@
 package com.project.domain.model.usecase.transaction.get;
 
 import com.project.domain.model.gateway.ITransactionRepository;
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class GetAllTransactionsUseCase {
 
     private final ITransactionRepository transactionRepository;
 
-    public Flux<transactionEntity> getAllTransactions(){
+    public Flux<TransactionEntity> getAllTransactions(){
         return transactionRepository.getAllTransactions();
     }
 }

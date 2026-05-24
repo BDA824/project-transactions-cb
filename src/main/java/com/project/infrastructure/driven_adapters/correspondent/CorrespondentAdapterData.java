@@ -16,16 +16,16 @@ public class CorrespondentAdapterData implements Persistable<Integer> {
     private int id;
 
     @Column("code_cb")
-    private int code_cb;
+    private int codeCB;
 
     @Column("id_customer")
     private int idCustomer;
 
     @Column("approved_amount")
-    private double approved_amount;
+    private double approvedAmount;
 
     @Column("average_trx")
-    private int average_trx;
+    private int averageTrx;
 
     @Column("location")
     private String location;
@@ -37,7 +37,7 @@ public class CorrespondentAdapterData implements Persistable<Integer> {
     private String owner;
 
     @Column("last_clousure")
-    private double last_clousure;
+    private double lastClosed;
 
     @Column("state")
     private CorrespondentStatus state;

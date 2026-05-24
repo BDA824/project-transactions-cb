@@ -3,7 +3,7 @@ package com.project.domain.model.usecase.customer.get;
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.exception.message.BusinessErrorMessage;
 import com.project.domain.model.gateway.ICustomerRepository;
-import com.project.domain.model.entity.customerEntity;
+import com.project.domain.model.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -12,7 +12,7 @@ public class FindCustomerByIdUseCase {
 
     private final ICustomerRepository customerRepository;
 
-    public Mono<customerEntity> getCustomerById(int id)
+    public Mono<CustomerEntity> getCustomerById(int id)
     {
 
         return customerRepository

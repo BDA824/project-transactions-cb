@@ -16,14 +16,14 @@ import java.time.LocalDate;
 public class CustomerAdapterData implements Persistable<Integer> {
     
     @Id
-    @Column("id")
+    @Column("identification")
     private Integer identification;
     
     @Column("age")
     private int age;
 
     @Column("date_vinculation")
-    private LocalDate date_vinculation;
+    private LocalDate dateCreate;
 
     @Column("phone")
     private Long phone;

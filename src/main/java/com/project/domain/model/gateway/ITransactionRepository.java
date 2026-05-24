@@ -1,13 +1,11 @@
 package com.project.domain.model.gateway;
-import com.project.domain.model.entity.transactionEntity;
+import com.project.domain.model.entity.TransactionEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 public interface ITransactionRepository {
 
-    Mono<transactionEntity> create(transactionEntity trx);
-    Flux<transactionEntity> getAllTransactions();
-    Flux<transactionEntity> getTransactionByCb(int code_cb);
+    Mono<TransactionEntity> create(TransactionEntity trx);
+    Flux<TransactionEntity> getAllTransactions();
+    Flux<TransactionEntity> getTransactionByCb(int code_cb);
 }

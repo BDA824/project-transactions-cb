@@ -1,6 +1,5 @@
 package com.project.infrastructure.driven_adapters.customer;
 
-import com.project.domain.model.entity.customerEntity;
 import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +13,7 @@ public interface CustomerAdapterRepository extends ReactiveCrudRepository<Custom
             "age = :age, " +
             "phone = :phone, " +
             "address = :address " +
-            "WHERE id = :identification")
+            "WHERE identification = :identification")
     Mono<Integer> updateCustomer(
             @Param("identification") Integer identification,
             @Param("age")           Integer age,
@@ -23,4 +22,9 @@ public interface CustomerAdapterRepository extends ReactiveCrudRepository<Custom
     );
 
     //Validate if customer already exist in method create
+
+    @Query("SELECT * FROM customer WHERE identification = :identification")
+    Mono<CustomerAdapterData> findById(
+            @Param("identification") int identification
+    );
 }

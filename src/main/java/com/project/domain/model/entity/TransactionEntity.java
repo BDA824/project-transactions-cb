@@ -10,21 +10,21 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @JsonDeserialize
-public class transactionEntity {
+public class TransactionEntity {
 
-    private int id_trx;
+    private int idTrx;
 
-    private int code_cb;
+    private int codeCB;
 
     private String entity;
 
-    private double amount_trx;
+    private double amountTrx;
 
     private TransactionStatus state;
 
-    private LocalDate date_trx;
+    private LocalDate dateTrx;
 
-    public transactionEntity () {
+    public TransactionEntity() {
         this.state = TransactionStatus.PENDING;
     }
 

@@ -15,26 +15,26 @@ public class TransactionAdapterData implements Persistable<Integer> {
 
     @Id
     @Column("id_trx")
-    private Integer id_trx;
+    private Integer idTrx;
 
     @Column("code_cb")
-    private int code_cb;
+    private int codeCB;
 
     @Column("entity")
     private String entity;
 
     @Column("amount_trx")
-    private double amount_trx;
+    private double amountTrx;
 
     @Column("state")
     private TransactionStatus state;
 
     @Column("date_trx")
-    private LocalDate date_trx;
+    private LocalDate dateTrx;
 
     @Override
     public Integer getId() {
-        return id_trx;
+        return idTrx;
     }
 
     @Override

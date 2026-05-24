@@ -2,7 +2,7 @@ package com.project.infrastructure.entry_point;
 
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.exception.message.BusinessErrorMessage;
-import com.project.domain.model.entity.correspondentEntity;
+import com.project.domain.model.entity.CorrespondentEntity;
 import com.project.domain.model.usecase.correspondent.create.CreateCorrespndentUseCase;
 import com.project.domain.model.usecase.correspondent.get.GetAllCorrespondentUseCase;
 import com.project.domain.model.usecase.correspondent.get.GetCorrespondentByCodeCbUseCase;
@@ -27,7 +27,7 @@ public class CorrespondentController {
 
     @PostMapping(path = "/create")
     public Mono<ResponseEntity<Object>> createCB(
-            @RequestBody correspondentEntity cb) {
+            @RequestBody CorrespondentEntity cb) {
 
         return createUC
                 .createCB(cb)
@@ -39,7 +39,7 @@ public class CorrespondentController {
     }
 
     @GetMapping(path = "/")
-    public Flux<correspondentEntity> getAllCb() {
+    public Flux<CorrespondentEntity> getAllCb() {
 
         return getAllUC
                 .getAllCorrespondents();
@@ -89,7 +89,7 @@ public class CorrespondentController {
 
     @PostMapping(path = "/update")
     public Mono<ResponseEntity<Object>> updateCB(
-            @RequestBody correspondentEntity cb) {
+            @RequestBody CorrespondentEntity cb) {
 
         return updateUC
                 .updateCorrespondent(cb)
