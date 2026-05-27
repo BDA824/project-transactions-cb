@@ -1,3 +1,5 @@
+# project-transactions-cb
+This project is designed to broadly simulate the management of clearing transactions for a banking correspondent
 # Project Transactions CB  
 
 + Backend desarrollado con Spring Boot y Gradle para la gestión de transacciones de corresponsales bancarios.
