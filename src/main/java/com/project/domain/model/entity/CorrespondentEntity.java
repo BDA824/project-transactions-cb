@@ -2,10 +2,12 @@ package com.project.domain.model.entity;
 
 import com.project.domain.model.enums.CorrespondentStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class CorrespondentEntity {
 
     private int codeCB;

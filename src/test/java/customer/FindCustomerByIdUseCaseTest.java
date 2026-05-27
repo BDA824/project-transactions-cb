@@ -1,3 +1,5 @@
+package customer;
+
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.model.entity.CustomerEntity;
 import com.project.domain.model.gateway.ICustomerRepository;
