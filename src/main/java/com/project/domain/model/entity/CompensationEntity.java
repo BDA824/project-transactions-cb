@@ -3,6 +3,7 @@ package com.project.domain.model.entity;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.project.domain.model.enums.CompensationStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,9 +11,8 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @JsonDeserialize
+@Builder
 public class CompensationEntity {
-
-    private int idCompensation;
 
     private int codeCB;
 

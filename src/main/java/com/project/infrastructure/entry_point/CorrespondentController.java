@@ -3,7 +3,7 @@ package com.project.infrastructure.entry_point;
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.exception.message.BusinessErrorMessage;
 import com.project.domain.model.entity.CorrespondentEntity;
-import com.project.domain.model.usecase.correspondent.create.CreateCorrespndentUseCase;
+import com.project.domain.model.usecase.correspondent.create.CreateCorrespondentUseCase;
 import com.project.domain.model.usecase.correspondent.get.GetAllCorrespondentUseCase;
 import com.project.domain.model.usecase.correspondent.get.GetCorrespondentByCodeCbUseCase;
 import com.project.domain.model.usecase.correspondent.get.GetCorrespondentByIdUseCase;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CorrespondentController {
 
-    private final CreateCorrespndentUseCase createUC;
+    private final CreateCorrespondentUseCase createUC;
     private final GetAllCorrespondentUseCase getAllUC;
     private final GetCorrespondentByCodeCbUseCase getByCodeCbUC;
     private final GetCorrespondentByIdUseCase getByIdUC;

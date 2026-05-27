@@ -1,6 +1,7 @@
+package customer;
+
 import com.project.domain.model.entity.CustomerEntity;
 import com.project.domain.model.gateway.ICustomerRepository;
-import com.project.domain.model.usecase.customer.get.FindCustomerByIdUseCase;
 import com.project.domain.model.usecase.customer.get.GetAllCustomerUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.mockito.Mockito.verify;

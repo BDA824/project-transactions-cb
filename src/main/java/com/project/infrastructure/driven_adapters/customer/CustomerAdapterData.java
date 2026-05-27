@@ -14,8 +14,7 @@ import java.time.LocalDate;
 @Table("customer")
 @Builder
 public class CustomerAdapterData implements Persistable<Integer> {
-    
-    @Id
+
     @Column("identification")
     private Integer identification;
     

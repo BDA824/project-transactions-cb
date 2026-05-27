@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
-public class CreateCorrespndentUseCase {
+public class CreateCorrespondentUseCase {
 
     private final ICorrespondentRepository correspondentRepository;
     private final ICompensationRepository cmpRepository;
@@ -24,8 +24,8 @@ public class CreateCorrespndentUseCase {
     public Mono<CorrespondentEntity> createCB(CorrespondentEntity cb) {
 
         return validateCustomerExists(cb.getIdCustomer())
-                .then(validateCorrespondentNotExists(cb.getCodeCB()))
-                .then(correspondentRepository.create(cb))
+                .then(Mono.defer(() -> validateCorrespondentNotExists(cb.getCodeCB())))
+                .then(Mono.defer(() -> correspondentRepository.create(cb)))
                 .flatMap(saved ->
                         createCompensation(saved)
                                 .thenReturn(saved)
@@ -56,11 +56,9 @@ public class CreateCorrespndentUseCase {
 
     private Mono<CompensationEntity> createCompensation(CorrespondentEntity cb){
         CompensationEntity cmp = new CompensationEntity();
-        int code_cmp = ThreadLocalRandom.current().nextInt(1001, 9999);
         LocalDate date = LocalDate.now();
 
         cmp = new CompensationEntity(
-                code_cmp,
                 cb.getCodeCB(),
                 cmp.setDate_cmp(date),
                 cb.getLastClosed(),
