@@ -1,10 +1,10 @@
+package correspondent;
+
 import com.project.domain.exception.exception_classes.BusinessException;
-import com.project.domain.exception.message.BusinessErrorMessage;
 import com.project.domain.model.entity.CompensationEntity;
 import com.project.domain.model.entity.CorrespondentEntity;
 import com.project.domain.model.entity.CustomerEntity;
 import com.project.domain.model.enums.CompensationStatus;
-import com.project.domain.model.enums.CorrespondentStatus;
 import com.project.domain.model.gateway.ICompensationRepository;
 import com.project.domain.model.gateway.ICorrespondentRepository;
 import com.project.domain.model.gateway.ICustomerRepository;

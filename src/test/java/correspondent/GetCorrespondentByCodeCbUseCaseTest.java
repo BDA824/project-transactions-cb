@@ -1,3 +1,5 @@
+package correspondent;
+
 import com.project.domain.exception.exception_classes.BusinessException;
 import com.project.domain.model.entity.CorrespondentEntity;
 import com.project.domain.model.gateway.ICorrespondentRepository;
